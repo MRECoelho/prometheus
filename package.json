@@ -1,0 +1,21 @@
+{
+  "name": "prometheus2",
+  "version": "1.0.0",
+  "description": "workflowy clone",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "rebuild": "electron-rebuild -f -w sqlite3"
+  },
+  "author": "Miguel Richard Coelho",
+  "license": "MIT",
+  "dependencies": {
+    "electron": "^4.0.3",
+    "electron-reload": "^1.4.0",
+    "rebuild": "^0.1.2",
+    "sqlite3": "^4.0.6"
+  },
+  "devDependencies": {
+    "electron-rebuild": "^1.8.2"
+  }
+}

@@ -1,0 +1,101 @@
+body{
+	margin: 0;
+	background: #555555;
+}
+.node{
+    /* margin: 5px; */
+    padding-left: 20px;
+}
+
+.content{
+	height: 100%;
+	grid-area: main;
+	background: #373737;
+	color: white;
+	font-family: 'Courier New', Courier, monospace;
+	font-size: 1em;
+/* padding-right: 41px; */
+}
+
+.node-handle{
+    padding-top: 0.8em;
+	/* margin-left:11px; */
+	/* margin-top: 10px;  base line: 4  +  margin from .name: 5   */
+
+	-webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+	user-select: none;
+	
+	grid-area: handle;
+    justify-self: end;
+    /* float: left; */
+    
+	/* align-self: center; */
+}
+
+.name{
+   padding-bottom: 0.4em;
+   margin-left: 3em;
+}
+
+.node.uncollapsed .node-handle{
+	content:url("data:image/svg+xml;charset=UTF-8, <svg xmlns='http://www.w3.org/2000/svg' version='1.1' height='10' width='10'><circle cx='5' cy='5' r='5' stroke='black' stroke-width='0' fill='rgb(64,151,128)' /></svg>");
+}
+
+.node.uncollapsed .node-handle:hover{
+	content:url("data:image/svg+xml;charset=UTF-8, <svg xmlns='http://www.w3.org/2000/svg' version='1.1' height='10' width='10'><circle cx='5' cy='5' r='5' stroke='black' stroke-width='0' fill='rgb(164,151,128)' /></svg>");
+}
+
+.node.collapsed .node-handle{
+	content:  url("data:image/svg+xml;charset=UTF-8, <svg xmlns='http://www.w3.org/2000/svg' version='1.1' height='10' width='15'><circle cx='5' cy='5' r='5' stroke='black' stroke-width='0' fill='rgb(118,107,103)' /><circle cx='10' cy='5' r='5' stroke='black' stroke-width='0' fill='rgb(64,151,128)' /></svg>"); 
+}
+.node.collapsed .node-handle:hover{
+	content:  url("data:image/svg+xml;charset=UTF-8, <svg xmlns='http://www.w3.org/2000/svg' version='1.1' height='10' width='15'><circle cx='5' cy='5' r='5' stroke='black' stroke-width='0' fill='rgb(118,107,103)' /><circle cx='10' cy='5' r='5' stroke='black' stroke-width='0' fill='rgb(164,151,128)' /></svg>"); 
+}
+
+.node.collapsed .children > *{
+    visibility: hidden;
+    height: 0;
+}
+.name:hover{
+    color:red;
+    /* border-top: #F00 solid 2px;  */
+    
+}
+
+.notes:empty{
+    height: 0;
+    visibility: hidden;
+}
+
+[contenteditable]:focus {
+    outline: 0px solid transparent;
+    background: rgba(63, 224, 0, 0.459)
+}
+
+.keyoutput{
+    text-align: center;
+    /* align-self: center; */
+    /* text-align: center; */
+    background-color: rgb(192, 243, 228);
+    color:rgb(104, 104, 104);
+    padding-left:1em;
+    padding-right:1em;
+    border-radius: 3px;
+    position: absolute;
+    /* width: 10em;
+    height: 1.4em; */
+    left: 200px;
+    bottom: 50px;
+    /* position:  */
+display: inline;
+-webkit-transition: opacity 0.3s ease-in-out;
+    -moz-transition: opacity 0.3s ease-in-out;
+    -ms-transition: opacity 0.3s ease-in-out;
+    -o-transition: opacity 0.3s ease-in-out;
+    transition: opacity 0.3s ease-in-out;
+     opacity: 0;
+}
