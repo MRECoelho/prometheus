@@ -5,7 +5,7 @@ My first attempt of a workflowy clone using elcetron with a SQLite backend. At t
 I started this project partly as toy project to teach myself Javascript. Although using some framework would probably result in cleaner and 'good' code, I chose to just hack my way to something I think is both useful and acceptable as a first project a new language.
 
 ## TODO
-__backend__
+__backend__:
  - enable moving of nodes
  - solidify a input output model for the promises
  - keep all essential(start transaction - commit/rollback) promise logic in logic.js
