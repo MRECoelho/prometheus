@@ -15,10 +15,12 @@ __backend__:
   - priority
   - primary key as auto incr
   - current id as creation
+  - search function
 
 __frontend__:
  - enable the drag logic
  - popup menu
  - enable css grid
  - new svg icons for priorities, marked and collapsed
+ - search UI
  
