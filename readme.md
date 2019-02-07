@@ -21,6 +21,7 @@ __backend__:
   - primary key as auto incr
   - current id as creation
   - search function
+  - err on when cannot be collapsed (already leaf node)
 
 __frontend__:
  - enable the drag logic
@@ -28,3 +29,4 @@ __frontend__:
  - enable css grid
  - new svg icons for priorities, marked and collapsed
  - search (results) UI
+ - bug when arrow up/down with folded nodes, redesign search prev/next valid node to move to, pure frontend?

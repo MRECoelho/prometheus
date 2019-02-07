@@ -253,25 +253,48 @@ function keydown(e){
         let carPos = window.getSelection().anchorOffset;
         // let divLength = e.target.innerText.length;
         if(carPos === 0){
-            if(e.target.classList.contains("name")){
+            console.log(e);
+            // e.target.parentNode.previousSibling.focus();
             let node = e.target.parentNode;
-            let  filtered = collapsedFiltered();
-            let prevNode = prevOf(filtered, node);
-            prevNode.querySelector("div.name").focus();
-            }else if(e.target.classList.contains("notes")){
-                node.focus();
+            let nodeArr = [].slice.call(document.getElementsByClassName("node"))
+            let visArr =[]
+            while(nodeArr){
+                let nextNode = nodeArr.shift();
+                visArr.push(nextNode)
+                // console.log(nodeArr.length, node, node.classList);
+                if(nextNode.classList.contains("collapsed")){
+                    let blacklist = [].slice.call(nextNode.getElementsByClassName("node"));
+                    nodeArr = nodeArr.filter(_node => { return !blacklist.includes(_node)})
+                }
+                
+                if(nodeArr.length===0){
+                    break
+                }
             }
+            console.log([].slice.call(document.getElementsByClassName("node")).length, visArr.length)
+            visArr[visArr.indexOf(node)-1].querySelector("div.name").focus() // todo protect from index < 0
+
+
+
+            // if(e.target.classList.contains("name")){
+            // let node = e.target.parentNode;
+            // let  filtered = collapsedFiltered();
+            // let prevNode = prevOf(filtered, node);
+            // prevNode.querySelector("div.name").focus();
+            // }else if(e.target.classList.contains("notes")){
+            //     node.focus();
+            // }
         }
     }
     else if(e.key ==="ArrowDown"){
-        let carPos = window.getSelection().anchorOffset;
-        let divLength = e.target.innerText.length;
-        if(carPos === divLength){
-            let node = e.target.parentNode;
-            let  filtered = collapsedFiltered();
-            let nextNode = nextOf(filtered, node);
-            nextNode.querySelector("div.name").focus();
-        }
+        // let carPos = window.getSelection().anchorOffset;
+        // let divLength = e.target.innerText.length;
+        // if(carPos === divLength){
+        //     let node = e.target.parentNode;
+        //     let  filtered = collapsedFiltered();
+        //     let nextNode = nextOf(filtered, node);
+        //     nextNode.querySelector("div.name").focus();
+        // }
     }
 
     else if(e.key==="m" && e.ctrlKey){
