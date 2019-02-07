@@ -8,7 +8,7 @@ I started this project partly as toy project to teach myself Javascript. Althoug
 __backend__:
  - enable moving of nodes
  - solidify a input output model for the promises
- - keep all essential(start transaction - commit/rollback) promise logic in logic.js
+ - keep all essential(start transaction - ... - commit/rollback) promise logic in logic.js
  - rename functions
  - rework the db schema 
   - ~~add completed column~~
@@ -25,5 +25,4 @@ __frontend__:
  - popup menu
  - enable css grid
  - new svg icons for priorities, marked and collapsed
- - search UI
- - 
+ - search (results) UI
