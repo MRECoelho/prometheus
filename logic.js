@@ -5,7 +5,8 @@ module.exports = {  init: init,
                     applyForSaveName: applyForSaveName,
                     applyForIndentNode: applyForIndentNode,
                     applyForUnindentNode: applyForUnindentNode,
-                    toggleCollapse: toggleCollapse};
+                    toggleCollapse: toggleCollapse,
+                    toggleComplete: toggleComplete};
 var url = require('url');
 var path = require('path');
 var sqlite3 = require('sqlite3');
@@ -264,6 +265,39 @@ const toggleCollapseMain = (args)=>{
                 }else{
                     //uncollapse
                     updateArgs.set("class_list", classList.replace(unCollapseStr, collapseStr));
+                }
+                
+                args.updateArgs = updateArgs;
+                args.conditionArgs = conditionArgs;
+                resolve(args)
+            }
+        })
+    })
+}
+const toggleCompleteMain = (args)=>{
+    return new Promise((resolve, reject)=>{
+
+        // get current style
+        // let completeStr ="collapsed"
+
+        
+        let sql = `select completed as result from node_table where id = ${args.refNodeID}`
+        db.get(sql, [], (err, row)=>{
+            if (err){
+                reject(err)
+            }else{
+                let classList = row.class_list;
+                
+                var updateArgs = new Map();
+                var conditionArgs = new Map();
+                conditionArgs.set("id", Number(args.refNodeID));
+
+                if( row.result === undefined || row.result === 0){
+                    //collapse
+                    updateArgs.set("completed", Number(1))
+                }else{
+                    //uncollapse
+                    updateArgs.set("completed", Number(0))
                 }
                 
                 args.updateArgs = updateArgs;
@@ -622,6 +656,17 @@ function toggleCollapse(nodeID){
     .then(updateNode)
     .then(commitTransaction,rollbackTransaction)
 }
+function toggleComplete(nodeID){
+    let args = {refNodeID: nodeID};
+    return validateNodeExistance(nodeID,args)
+    .then(startTransaction)
+    .then(toggleCompleteMain)
+    .then(updateNode)
+    .then(commitTransaction,rollbackTransaction)
+}
+
+
+
 const createNode = (args=null)=>{
     //default
     let obj= 

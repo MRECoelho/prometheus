@@ -7,6 +7,11 @@ body{
     padding-left: 20px;
 }
 
+.completed {
+    text-decoration: line-through;
+    /* opacity: 0.4; this includes the button */
+}
+
 .content{
 	height: 100%;
 	grid-area: main;

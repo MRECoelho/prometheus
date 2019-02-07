@@ -113,7 +113,10 @@ function hoverFn(e){
 
 let parseNodeFromDBToDOM = (obj)=>{
     var nodeDiv = document.createElement('div');
-    let classList = obj['class_list'].split(" ").forEach(classItem => {nodeDiv.classList.add(classItem);});
+    obj['class_list'].split(" ").forEach(classItem => {nodeDiv.classList.add(classItem);});
+    if (obj["completed"] === 1){
+        nodeDiv.classList.add("completed");
+    }
     nodeDiv.id = String(obj["id"]);
     var nodeHandleDiv = document.createElement('div');
     nodeHandleDiv.classList.add("node-handle");
@@ -271,9 +274,25 @@ function keydown(e){
         }
     }
 
+    else if(e.key==="m" && e.ctrlKey){
+        e.preventDefault();
+        keyoutput.innerText = "CTRL + M";
+        let div = e.srcElement;
+        let node = div.parentNode;
+        logic.toggleComplete(node.id)
+        .then(ok =>{
+            console.log("succes", ok);
+                if(node.classList.contains("completed")){
 
-        
-        
+                    node.classList.remove("completed")
+                }else{
+                    node.classList.add("completed")
+
+                }
+        }, err=>{console.log(err);})
+    }
+
+
         // power indent
 
         

@@ -6,13 +6,15 @@ I started this project partly as toy project to teach myself Javascript. Althoug
 
 ## TODO
 __backend__:
+ - change collapse functionality: add column collapsed instead of parsing class_list column
+ - rewrite class_list column concept to own columns -> no weird parsing stuff. This also makes generalizing passible (toggleComplete ~=~ toggleCollapse) as you just search for a certain column
  - enable moving of nodes
  - solidify a input output model for the promises
  - keep all essential(start transaction - ... - commit/rollback) promise logic in logic.js
  - rename functions
  - rework the db schema 
   - ~~add completed column~~
-  - impl node completed functionality
+  - ~~impl node completed functionality~~
   - ~~ add priority column~~
   - impl node priority functionality
   - enable notes functionality
