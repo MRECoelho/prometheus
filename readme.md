@@ -11,8 +11,11 @@ __backend__:
  - keep all essential(start transaction - commit/rollback) promise logic in logic.js
  - rename functions
  - rework the db schema 
-  - add marked
-  - priority
+  - ~~add completed column~~
+  - impl node completed functionality
+  - ~~ add priority column~~
+  - impl node priority functionality
+  - enable notes functionality
   - primary key as auto incr
   - current id as creation
   - search function
@@ -23,4 +26,4 @@ __frontend__:
  - enable css grid
  - new svg icons for priorities, marked and collapsed
  - search UI
- 
+ - 
