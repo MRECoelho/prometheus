@@ -180,6 +180,13 @@ const deleteNodeMain=(args) =>{
         console.log(" here 2")
         let refNodeID = args.refNodeID;
         // must not have children
+
+        // if(args.hasChildren===true){
+        //     reject("Has children.")
+        // }else{
+
+        // }
+
         let sql = `select count(1) as result from node_table where parent_id = ${refNodeID}`
         db.get(sql,[],(err,row)=>{
     
@@ -241,8 +248,29 @@ const deleteNodeMain=(args) =>{
 //     })
 // }
 
+
+const hasChildren = (args)=>{
+    return new Promise((resolve,reject)=>{
+        let sql = `select count(1) as result from node_table where parent_id = ${args.refNodeID}`
+        db.get(sql, [], (err,row)=>{
+            if(err){
+                reject(err)
+            }
+            
+                args.hasChildren = row.result ===0? false : true;
+                console.log("node has children:", args.hasChildren)
+                resolve(args);
+            
+        })
+    })
+}
+
 const toggleCollapseMain = (args)=>{
     return new Promise((resolve, reject)=>{
+
+        if(args.hasChildren===false){
+            return reject("No children to collapse.")
+        }
 
         // get current style
         let collapseStr ="collapsed"
@@ -652,6 +680,7 @@ function toggleCollapse(nodeID){
     let args = {refNodeID: nodeID};
     return validateNodeExistance(nodeID,args)
     .then(startTransaction)
+    .then(hasChildren)
     .then(toggleCollapseMain)
     .then(updateNode)
     .then(commitTransaction,rollbackTransaction)

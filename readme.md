@@ -29,4 +29,6 @@ __frontend__:
  - enable css grid
  - new svg icons for priorities, marked and collapsed
  - search (results) UI
- - bug when arrow up/down with folded nodes, redesign search prev/next valid node to move to, pure frontend?
+ - ~~bug when arrow up/down with folded nodes, redesign search prev/next valid node to move to, pure frontend?~~
+ - refactor arrow up/down functionality to 'global' state machine/function for DRY and performant code
+ 
