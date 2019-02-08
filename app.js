@@ -11,6 +11,10 @@ logic.init((resp)=>{
         let node = parseNodeFromDBToDOM(nodeObj);
         console.log(nodeObj, node);
         if(nodeObj['parent_id']===0){
+            var tabLink = document.createElement('a');
+            tabLink.innerText = nodeObj["name"]
+            tabLink.classList.add("listTab")
+            document.querySelector("div.listTabs").appendChild(tabLink);
             contentDiv.appendChild(node);
             node.addEventListener("keydown", keydown, false);
             // node.addEventListener("mousemove", (e) => {sm.handle(e, hoverFn)}, false) // mouse over for when moving nodes
@@ -111,7 +115,7 @@ function hoverFn(e){
     }
 }
 
-let parseNodeFromDBToDOM = (obj)=>{
+let parseNodeFromDBToDOM = (obj, includeRootMeta = false)=>{
     var nodeDiv = document.createElement('div');
     obj['class_list'].split(" ").forEach(classItem => {nodeDiv.classList.add(classItem);});
     if (obj["completed"] === 1){
@@ -136,9 +140,11 @@ let parseNodeFromDBToDOM = (obj)=>{
     notesDiv.classList.add("notes");
     var childrenDiv = document.createElement('div');
     childrenDiv.classList.add('children');
-    nodeDiv.appendChild(nodeHandleDiv);
-    nodeDiv.appendChild(nameDiv);
-    nodeDiv.appendChild(notesDiv);
+    if(!includeRootMeta && obj["parent_id"]!==0){
+        nodeDiv.appendChild(nodeHandleDiv);
+        nodeDiv.appendChild(nameDiv);
+        nodeDiv.appendChild(notesDiv);
+    }
     nodeDiv.appendChild(childrenDiv);
     return nodeDiv;
 }
@@ -282,24 +288,29 @@ function keydown(e){
     }
     else if(e.key ==="ArrowDown"){
         let node = e.target.parentNode;
-        let nodeArr = [].slice.call(document.getElementsByClassName("node"))
-        let visArr =[]
-        while(nodeArr){
-            let nextNode = nodeArr.shift();
-            visArr.push(nextNode)
-            // console.log(nodeArr.length, node, node.classList);
-            if(nextNode.classList.contains("collapsed")){
-                let blacklist = [].slice.call(nextNode.getElementsByClassName("node"));
-                nodeArr = nodeArr.filter(_node => { return !blacklist.includes(_node)})
+        let carPos = window.getSelection().anchorOffset;
+        let divLength = e.target.innerText.length;
+        if(carPos===divLength){
+
+            let nodeArr = [].slice.call(document.getElementsByClassName("node"))
+            let visArr =[]
+            while(nodeArr){
+                let nextNode = nodeArr.shift();
+                visArr.push(nextNode)
+                // console.log(nodeArr.length, node, node.classList);
+                if(nextNode.classList.contains("collapsed")){
+                    let blacklist = [].slice.call(nextNode.getElementsByClassName("node"));
+                    nodeArr = nodeArr.filter(_node => { return !blacklist.includes(_node)})
+                }
+                
+                if(nodeArr.length===0){
+                    break
+                }
             }
-            
-            if(nodeArr.length===0){
-                break
-            }
+            console.log([].slice.call(document.getElementsByClassName("node")).length, visArr.length)
+            let idx = Math.min(visArr.indexOf(node)+1, visArr.length-1); // todo protect from index < 0
+            visArr[idx].querySelector("div.name").focus(); 
         }
-        console.log([].slice.call(document.getElementsByClassName("node")).length, visArr.length)
-        let idx = Math.min(visArr.indexOf(node)+1, visArr.length-1); // todo protect from index < 0
-        visArr[idx].querySelector("div.name").focus(); 
 
     }
 
